@@ -6,13 +6,16 @@ app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/json", jsonHandler);
 function jsonHandler(req, res) {
-  let message = "Hello json";
-  if (process.env["MESSAGE_STYLE"] === "uppercase") {
-    message = message.toUpperCase();
+  const mySecret = process.env["MESSAGE_STYLE"];
+  if (mySecret === "uppercase") {
+    res.json({
+      message: "HELLO JSON",
+    });
+  } else {
+    res.json({
+      message: "Hello json",
+    });
   }
-  res.json({
-    message: message,
-  });
 }
 
 app.get("/", function (req, res) {
