@@ -6,8 +6,8 @@ app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/json", jsonHandler);
 function jsonHandler(req, res) {
-  const mySecret = process.env["MESSAGE_STYLE"];
-  if (mySecret == "uppercase") {
+  const mySecret = process.env.MESSAGE_STYLE;
+  if (mySecret === "uppercase") {
     res.json({
       message: "HELLO JSON",
     });
