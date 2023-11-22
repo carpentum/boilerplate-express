@@ -3,7 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
-app.use("/public", express.static(__dirname + "/public"));
+app.use("/", express.static(__dirname + "/public"));
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
@@ -40,8 +40,7 @@ function handleGetName(req, res) {
 }
 
 function handlePostName(req, res) {
-  console.log(res);
-  res.send({ status: 200 });
+  res.json({ name: req.body.first + " " + req.body.last });
 }
 
 app.get(
