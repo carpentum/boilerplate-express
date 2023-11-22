@@ -1,12 +1,14 @@
 require("dotenv").config();
-let express = require("express");
-let app = express();
+var express = require("express");
+var bodyParser = require("body-parser");
+var app = express();
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
 });
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/json", jsonHandler);
 function jsonHandler(req, res) {
@@ -26,12 +28,20 @@ app.get("/:word/echo", (req, res) => {
   res.json({ echo: req.params.word });
 });
 
-app.route("/name").get(handleGetName);
+app
+  .route("/name")
+  .get(handleGetName)
+  .post(bodyParser.urlencoded({ extended: false }), handlePostName);
 
 function handleGetName(req, res) {
   res.json({
     name: req.query.first + " " + req.query.last,
   });
+}
+
+function handlePostName(req, res) {
+  console.log(res);
+  res.send({ status: 200 });
 }
 
 app.get(
