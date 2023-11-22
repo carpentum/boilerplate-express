@@ -22,6 +22,10 @@ function jsonHandler(req, res) {
   }
 }
 
+app.get("/:word/echo", (req, res) => {
+  res.json({ echo: req.params.word });
+});
+
 app.get(
   "/now",
   function (req, res, next) {
