@@ -14,18 +14,17 @@ app.get("/json", jsonHandler);
 function jsonHandler(req, res) {
   const mySecret = process.env.MESSAGE_STYLE;
   if (mySecret === "uppercase") {
-    res.json({
+    return res.status(200).json({
       message: "HELLO JSON",
     });
-  } else {
-    res.json({
-      message: "Hello json",
-    });
   }
+  res.status(200).json({
+    message: "Hello json",
+  });
 }
 
 app.get("/:word/echo", (req, res) => {
-  res.json({ echo: req.params.word });
+  res.status(200).json({ echo: req.params.word });
 });
 
 app
@@ -50,12 +49,12 @@ app.get(
     next();
   },
   function (req, res) {
-    res.send({ time: req.time });
+    res.status(200).send({ time: req.time });
   }
 );
 
 app.get("/", function (req, res) {
-  res.sendFile(`${__dirname}/views/index.html`);
+  res.status(200).sendFile(`${__dirname}/views/index.html`);
 });
 
 module.exports = app;
